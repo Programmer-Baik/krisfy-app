@@ -24,6 +24,7 @@ export interface PhantomProvider {
   disconnect: () => Promise<void>;
   on: (event: PhantomEvent, callback: (args: any) => void) => void;
   isPhantom: boolean;
+  getBalance?: () => Promise<{balance: number}>;
 }
 
 export type WindowWithSolana = Window & {
