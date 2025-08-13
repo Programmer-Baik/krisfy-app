@@ -12,11 +12,11 @@ export default function Navbar() {
   const isVisible = useDisplayStore((state) => state.isVisible);
   const toggleVisibility = useDisplayStore((state) => state.toggleVisibility);
   const { toggleWallet } = useWalletDisplayStore();
-  const { phantomConnected } = usePhantomWallet();
+  const { phantomConnected, balance } = usePhantomWallet();
 
   return (
     <nav
-      className="flex justify-center z-20 bg-[#0b0d11] py-3 items-center fixed top-0 left-0 right-0 "
+      className={`flex justify-center z-20 py-3 items-center fixed top-0 left-0 right-0 ${isVisible ? 'bg-slate-800 border-2 border-slate-700' : 'bg-[#0b0d11]'}`}
       role="navigation"
       aria-label="main navigation"
     >
@@ -180,9 +180,9 @@ export default function Navbar() {
 
         ):
           <ul className="flex items-start w-[70%] gap-x-10 text-white text-sm">
-            <li className="font-bold">Dashboard</li>
-            <li className="font-bold text-gray-500">Market</li>
-            <li className="font-bold text-gray-500">Governance</li>
+            <li className="font-bold hover:cursor-pointer select-none">Dashboard</li>
+            <li className="font-bold text-gray-500 hover:cursor-pointer select-none">Market</li>
+            <li className="font-bold text-gray-500 hover:cursor-pointer select-none ">Governance</li>
           </ul>
         }
 
@@ -196,7 +196,11 @@ export default function Navbar() {
             phantomConnected === false ? (
             <Button className="hover:cursor-pointer active:scale-95" onClick={toggleWallet}>Connect Wallet</Button>
           ) : (
-            <h4 className="text-white text-xl">Phantom Wallet</h4>
+            <div className="flex gap-2">
+              <button className="bg-gray-600 text-white font-semibold py-2 px-4 border-2 hover:bg-gray-500 hover:cursor-pointer active:scale-95 border-gray-500 rounded-md">Phantom</button>
+              <button className="text-white font-semibold py-2 px-4 hover:cursor-pointer active:scale-95"><i className="ri-coin-line"></i> {balance}</button>
+              <button className="text-2xl px-2 text-gray-400 hover:scale-95 hover:cursor-pointer active:scale-90"><i className="ri-settings-2-line"></i></button>
+            </div>
           )
           )}
         </div>

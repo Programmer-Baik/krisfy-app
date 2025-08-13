@@ -14,7 +14,7 @@ const Dashboard = () => {
           <div className="flex flex-col items-center justify-center gap-4 text-center w-[30%]">
             <i className="ri-wallet-line text-blue-500 bg-gradient-to-r from-[#1e2955] to-[#291d55] text-5xl p-6 rounded-full"></i>
             <h2 className="text-3xl font-bold text-white">Connect Wallet</h2>
-            <p className="text-base text-gray-300">Connect yoru wallet to start landing, borrowing, and earning yield on your crypto assets</p>
+            <p className="text-base text-gray-300">Connect your wallet to start landing, borrowing, and earning yield on your crypto assets</p>
             <Button onClick={toggleWallet} className='hover:shadow-md active:scale-95 transition-all ease-in-out duration-100 shadow-sm hover:shadow-purple-500/80'>Connect Wallet</Button>
           </div>
         </Container>
