@@ -7,12 +7,22 @@ import { useDisplayStore }  from "@/store/useDisplayStore";
 import { useWalletDisplayStore } from "@/store/useWalletDisplayStore";
 import WalletCard from "./WalletCard";
 import { usePhantomWallet } from "@/services/usePhantomWallet";
+import { useEffect, useState } from "react";
 
 export default function Navbar() {
   const isVisible = useDisplayStore((state) => state.isVisible);
   const toggleVisibility = useDisplayStore((state) => state.toggleVisibility);
   const { toggleWallet } = useWalletDisplayStore();
   const { phantomConnected, balance } = usePhantomWallet();
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <nav
@@ -196,9 +206,10 @@ export default function Navbar() {
             phantomConnected === false ? (
             <Button className="hover:cursor-pointer active:scale-95" onClick={toggleWallet}>Connect Wallet</Button>
           ) : (
+
             <div className="flex gap-2">
-              <button className="bg-gray-600 text-white font-semibold py-2 px-4 border-2 hover:bg-gray-500 hover:cursor-pointer active:scale-95 border-gray-500 rounded-md">Phantom</button>
-              <button className="text-white font-semibold py-2 px-4 hover:cursor-pointer active:scale-95"><i className="ri-coin-line"></i> {balance}</button>
+              <button className="bg-gray-600 text-white font-semibold py-2 px-4 border-2 hover:bg-gray-500 hover:cursor-pointer active:scale-95 border-gray-500 rounded-md">{loading === true ? (<span>Loading...</span>) : (<span>Phantom</span>)}</button>
+              <button className="text-white font-semibold py-2 px-4 hover:cursor-pointer active:scale-95"><i className="ri-coin-line"></i> {loading === true ? (<span>...</span>) : (<span>{balance}</span>)}</button>
               <button className="text-2xl px-2 text-gray-400 hover:scale-95 hover:cursor-pointer active:scale-90"><i className="ri-settings-2-line"></i></button>
             </div>
           )
